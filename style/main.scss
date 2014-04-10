@@ -12,7 +12,7 @@ $mobile-threshold: $field-width + 20px;
 $text-color: #776E65;
 $bright-text-color: #f9f6f2;
 
-$tile-color: #eee4da;
+$tile-color: rgb(127, 189, 124); //#eee4da;
 $tile-gold-color: #edc22e;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
 
@@ -89,7 +89,7 @@ h1.title {
     font-size: 13px;
     line-height: 13px;
     text-align: center;
-    color: $tile-color;
+    // color: $tile-color;
   }
 
   .score-addition {
@@ -276,7 +276,7 @@ hr {
 
     border-radius: $tile-border-radius;
 
-    background: rgba($tile-color, .35);
+    background: lighten($game-container-background, 4);
 
     &:last-child {
       margin-right: 0;
@@ -362,35 +362,43 @@ hr {
       $special-background: nth($nth-color, 1);
       $bright-color: nth($nth-color, 2);
 
+      // No special background colors.
+      /*
       @if $special-background {
         $mixed-background: mix($special-background, $mixed-background, 55%);
       }
+      */
 
+      // No special backgrounds - no bright colours.
+      /*
       @if $bright-color {
         color: $bright-text-color;
       }
+      */
 
       // Set background
       background: $mixed-background;
 
+      // Glow is removed
+      /*
       // Add glow
       $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
 
       @if not $special-background {
         box-shadow: 0 0 30px 10px rgba($tile-gold-glow-color, $glow-opacity / 1.8),
                     inset 0 0 0 1px rgba(white, $glow-opacity / 3);
-      }
+      }*/
 
       // Adjust font size for bigger numbers
-      @if $power >= 100 and $power < 1000 {
+      @if $power >= 128 and $power < 1024 {
         font-size: 45px;
 
         // Media queries placed here to avoid carrying over the rest of the logic
         @include smaller($mobile-threshold) {
           font-size: 25px;
         }
-      } @else if $power >= 1000 {
-        font-size: 35px;
+      } @else if $power >= 1024 {
+        font-size: $tile-size - 50px;
 
         @include smaller($mobile-threshold) {
           font-size: 15px;
